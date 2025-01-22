@@ -1,0 +1,19 @@
+name: wf-develop-pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Run HTMLHint
+        run: |
+          npx htmlhint "**/*.html"
+          npx stylelint "**/*.css"
+
+      - name: Build Website
+        run: |
+          npx parcel build "./Demo.html" --dist-dir "./dist" --public-url "./"
